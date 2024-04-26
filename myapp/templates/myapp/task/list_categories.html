@@ -1,0 +1,17 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Категории задач{% endblock %}
+
+{% block content %}
+<h1 id="TitleTasks">Категории задач <a class="btn btn-secondary" href="{% url 'create_category' %}"><b>+</b></a></h1><hr>
+<ol>
+    {% for category in categories %}<br>
+    <li id="list">
+        <a id="list_category" href="{% url 'tasks_list_by_category' id_category=category.id %}"><h3>{{category.name}}</h3></a>
+        Задачи - {{category.tasks.count}} шт
+        <a class="btn btn-secondary" href="{% url 'edit_category' id_category=category.id %}">Редактировать</a>
+        <a class="btn btn-secondary" href="{% url 'delete_category' id_category=category.id %}">Удалить</a>
+    </li>
+    {% endfor %}
+</ol>
+{% endblock %}

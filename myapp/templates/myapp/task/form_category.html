@@ -1,0 +1,17 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Создать категорию{% endblock %}
+
+{% block content %}
+<style>
+label {
+    display: none;
+}
+</style>
+<form method="post">
+    <h1>Создать категорию</h1><hr><br>
+      {{form.as_p}}
+      {% csrf_token %}
+    <input class="btn btn-secondary" type="submit" value="Создать">
+</form>
+{% endblock %}

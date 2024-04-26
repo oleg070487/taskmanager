@@ -1,0 +1,14 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<form method="post" >
+    <h2>Вход</h2><hr>
+    {{form.as_p}}
+    {% csrf_token %}
+    <input class="btn btn-secondary" type="submit" value="Войти">
+</form><br>
+<p><a class="link" href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+{% endblock %}
+

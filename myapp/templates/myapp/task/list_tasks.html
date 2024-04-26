@@ -1,0 +1,71 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<h2 id="TitleTasks" > {{ page_title }}  <a href="{% url 'create' %}"><i class="fa-solid fa-plus"></i></a></h2><hr>
+<ol>
+    {% for task in tasks %}<br>
+    <li id="list">
+        <h5>{{task.title}}</h5>
+        Категория: {{task.category}}<br>
+        <b><pre>{{task.description}}</pre></b>
+        Приоритет выполнения: <b style="font-style: italic;">{{task.priority|title}}</b>
+        <p id="date">Выполнить до {{task.due_date}}</p>
+        <a class="btn btn-secondary" href="{% url 'edit' pk=task.id %}">Редактировать</a>
+        <a class="btn btn-secondary" href="{% url 'delete' pk=task.id %}">Удалить</a>
+        {% if task.completed %}
+            <a class="btn btn-success" id="green" href="{% url 'status' id_task=task.id %}">Выполнено</a>
+        {% else %}
+            <a class="btn btn-success" id="red" href="{% url 'status' id_task=task.id %}">Не выполнено</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ol>
+    <div id="sidebar">
+          <div id="filter">
+              {% include "myapp/task/search.html" %}<br>
+              <form method="GET">
+                  <h3>Примените фильтр:</h3>
+                  <label for="category">Категория:</label>
+                  <select  class="form-control" name="category" id="category">
+                      <option value="">По умолчанию</option>
+                      {% for category in categories %}
+                      <option value="{{ category.id }}" {% if category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+                      {% endfor %}
+                  </select>
+                  <label for="status">Статус:</label>
+                  <select class="form-control" name="status" id="status">
+                      <option value="">Все</option>
+                      <option value="Выполнено" {% if status == 'Выполнено' %}selected{% endif %}>Выполнено</option>
+                      <option value="Не выполнено" {% if status == 'Не выполнено' %}selected{% endif %}>Не выполнено</option>
+                  </select>
+                  <label for="due_date">Срок выполнения:</label>
+                  <select class="form-control" name="due_date" id="due_date">
+                      <option value="">Все</option>
+                      <option value="Просроченные" {% if due_date == "Просроченные" %}selected{% endif %}>Просроченные</option>
+                      <option value="Сегодня" {% if due_date == "Сегодня" %}selected{% endif %}>Сегодня</option>
+                      <option value="Не просроченные" {% if due_date == "Не просроченные" %}selected{% endif %}>Не просроченные</option>
+                  </select>
+                  <label for="priority">Приоритет выполнения:</label>
+                  <select class="form-control" name="priority" id="priority">
+                      <option value="">Все</option>
+                      <option value="высокий" {% if priority == 'высокий' %}selected{% endif %}>Высокий</option>
+                      <option value="средний" {% if priority == "средний" %}selected{% endif %}>Средний</option>
+                      <option value="низкий" {% if priority == "низкий" %}selected{% endif %}>Низкий</option>
+                  </select><br>
+                  <button class="btn btn-secondary" type="submit">Применить</button>
+                  <button class="btn btn-secondary" type="submit" name="reset" value="true">Сбросить</button>
+              </form>
+
+    </div>
+    <div class="sidebar1">
+        <p>Задачи - {{tasks.count}}шт.:</p>
+        <ol>
+            {% for task in tasks %}
+            <li>{{ task.description }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    </div>
+{% endblock %}

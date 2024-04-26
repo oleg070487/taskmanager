@@ -1,0 +1,13 @@
+{% extends "myapp/base.html" %}
+
+{% block title %}Редактировать категорию{% endblock %}
+
+{% block content %}
+<form method="post" >
+    <h1>Редактировать категорию</h1><hr><br>
+      {{form.as_p}}
+      {% csrf_token %}
+    <p><a class="link" href="{% url 'create_category' %}">Создать новую категорию</a></p>
+    <input class="btn btn-secondary" type="submit" value="Редактировать задачу">
+</form>
+{% endblock %}

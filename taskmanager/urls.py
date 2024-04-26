@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from myapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls), # url входа в админ панель
     path('tasks/', include('myapp.urls')), # url входа на страницы по работе с задачами
+    path('', views.index, name='index'),
     path('', include('auth.urls')), # url входа на страницы авторизации и регистрации
 ]

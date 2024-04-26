@@ -16,6 +16,11 @@ from .models import Task, Category
 from .sevices import redirect_to_previous_page
 
 
+def index(request):
+    return render(request, 'myapp/index.html')
+
+
+
 """Вариант-1,Функция вывода списка задач БЕЗ ФИЛЬТРА"""
 
 # @login_required

@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.list_tasks, name='list'),  # вариант 1 на базе функции
+    path('list', views.list_tasks, name='list'),  # вариант 1 на базе функции
     path('create/', views.create, name='create'),  # вариант 1 на базе функции
     path('create-category/', views.create_category, name='create_category'),  # вариант 1 на базе функции
     path('edit/<int:pk>/', views.edit, name='edit'),  # вариант 1 на базе функции

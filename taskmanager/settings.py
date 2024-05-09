@@ -52,7 +52,7 @@ ROOT_URLCONF = 'taskmanager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['auth/templates', 'myapp/templates'],
+        'DIRS': ['auth/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,19 +116,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'list'  # URL-адрес или шаблон именованного URL-адреса ,
+LOGIN_REDIRECT_URL = 'list'
+# URL-адрес или шаблон именованного URL-адреса,
 # по которому запросы перенаправляются после входа в систему,
-# если LoginView не получает nextпараметр GET.
+# если LoginView не получает next параметр GET.
 # это настройка Django, которая определяет URL-адрес,
 # на который пользователь будет перенаправлен после успешного входа в систему
-LOGIN_URL = 'login'  # URL-адрес или шаблон именованного URL-адреса , по которому перенаправляются запросы
-# на вход при использовании login_required()декоратора, LoginRequiredMixinили AccessMixin
+
+LOGIN_URL = 'login'
+# URL-адрес или шаблон именованного URL-адреса, по которому перенаправляются запросы
+# на вход при использовании login_required() декоратора, LoginRequiredMixinили AccessMixin
 # это настройка Django, которая определяет URL-адрес для страницы входа в систему.
 # Если пользователь попытается получить доступ к защищенному представлению и не аутентифицирован,
 # он будет перенаправлен на этот URL-адрес для входа.
-LOGOUT_URL = 'logout'  # это настройка Django, которая определяет URL-адрес для страницы входа в систему.
-# Если пользователь попытается получить доступ к защищенному представлению и не аутентифицирован,
-# он будет перенаправлен на этот URL-адрес для входа.
+
+LOGOUT_URL = 'logout'
+# это настройка Django, которая определяет URL-адрес по которому перенаправляется пользователь
+# после выхода из учетной записи.
 
 
 # переключить если надо что бы письма выводились в консоль выводились
@@ -151,8 +155,8 @@ DEFAULT_FROM_EMAIL = 'medinschi.oleg@gmail.com'
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = '6379'
 CELERY_BROKER_URL = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
-CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600} 
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
 CELERY_RESULT_BACKEND = 'redis://' + REDIS_HOST + ':' + REDIS_PORT + '/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER  = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

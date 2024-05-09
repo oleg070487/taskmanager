@@ -20,7 +20,6 @@ def index(request):
     return render(request, 'myapp/index.html')
 
 
-
 """Вариант-1,Функция вывода списка задач БЕЗ ФИЛЬТРА"""
 
 # @login_required
@@ -64,7 +63,7 @@ def list_tasks(request):
         tasks = tasks.filter(Q(description__icontains=query) | Q(description__icontains=query.capitalize()))
 
     # Применяем фильтрацию по категории, если указана,
-    # то есть если 'category_id' не равняеться NONE или пустой строки
+    # то есть если 'category_id' не равняется NONE или пустой строки
 
     if category_id:
         tasks = tasks.filter(category_id=category_id)
@@ -90,7 +89,6 @@ def list_tasks(request):
             tasks = tasks.filter(priority='средний')
         elif priority == 'низкий':
             tasks = tasks.filter(priority='низкий')
-
 
     # Определяем заголовок страницы в зависимости от фильтров
     # в зависимости от условия мы переапределяем постоянно переменную 'page_title'
@@ -129,8 +127,8 @@ def create(request):
         form = TaskForm(request.POST,
                         user=request.user)  # user=request.user для того что бы не отображались чужие категории
         if form.is_valid():
-            task = form.save(commit=False)  # не записывем сразу в базу данных
-            task.user = request.user  # присваеваем новой задачи пользователя
+            task = form.save(commit=False)  # не записываем сразу в базу данных
+            task.user = request.user  # присваиваем новой задачи пользователя
             task.save()
             # messages.success(request, 'Задача успешно создана.')
             return redirect('list')
@@ -149,7 +147,7 @@ def edit(request, pk):
         form = TaskFormEdit(request.POST, user=request.user, instance=task)
         # Здесь также используется user=request.user, чтобы форма -
         # -отображала только категории, принадлежащие текущему пользователю.
-        # instance=task вставляем данные выбраной задачи в форму
+        # 'instance=task' вставляем данные выбранной задачи в форму
 
         if form.is_valid():
             form.save()
@@ -191,7 +189,7 @@ def delete(request, pk):
 #     form_class = TaskForm
 
 
-"""Вариант-3,Класс для вывода списка задач, на базе класса View"""
+"""Вариант-3,Класс для вывода списка задач, на базе базового класса View"""
 # class TaskListView(View):
 #     def get(self, request):
 #         tasks = Task.objects.all()
@@ -207,8 +205,8 @@ def toggle_status(request, id_task):
     task.save()
     return redirect_to_previous_page(request)
     # используем свою функцию из файла sevises.py  для перенаправляем на текущий адрес
-        # что бы при смене статуса находясь в определенной категории задач
-        # не перенаправлялось на общий список
+    # что бы при смене статуса находясь в определенной категории задач
+    # не перенаправлялось на общий список
 
 
 """Функция создания новой категории задач"""
@@ -299,7 +297,7 @@ def task_list_by_category(request, id_category):
         elif due_date == 'Не просроченные':
             tasks = tasks.filter(due_date__gt=date.today())
 
-     # Применяем фильтрацию по приоритету, если указан
+    # Применяем фильтрацию по приоритету, если указан
     if priority:
         if priority == 'высокий':
             tasks = tasks.filter(priority='высокий')
@@ -329,7 +327,7 @@ def task_list_by_category(request, id_category):
     return render(request, 'myapp/task/list_tasks.html', context)
 
 
-"""Функция отправки отправки уведомления на почту если прошел или подходит срок выполнения задачь"""
+"""Функция отправки отправки уведомления на почту если прошел или подходит срок выполнения задач"""
 
 
 @login_required
@@ -347,8 +345,3 @@ def send_notifications(request):
         message += '\n'.join(task_descriptions)
         send_mail(subject, message, DEFAULT_FROM_EMAIL, [request.user.email])
     return render(request, 'myapp/task/notifications_sent.html')
-
-
-
-
-

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect
 
-"""Моя функция для перенапрвления на предыдущию страницу"""
+"""Моя функция для перенаправления на предыдущию страницу"""
 
 
 def redirect_to_previous_page(request, default_redirect='list'):

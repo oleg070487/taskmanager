@@ -4,6 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, \
 from django.contrib.auth.models import User
 
 """Форма авторизации пользователей"""
+
+
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
         'placeholder': 'Имя пользователя',
@@ -12,7 +14,10 @@ class LoginForm(AuthenticationForm):
         'placeholder': 'Пароль',
         'class': 'form-control'}))
 
+
 """Форма по смене пароля пользователя"""
+
+
 class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label='Старый пароль',
                                    widget=forms.PasswordInput(attrs={
@@ -29,6 +34,8 @@ class UserPasswordChangeForm(PasswordChangeForm):
 
 
 """Форма  по сбросу пароля по email"""
+
+
 class UserPasswordResetForm(PasswordResetForm):
     email = forms.EmailField(label='Адрес электронной почты',
                              widget=forms.EmailInput(attrs={
@@ -37,6 +44,8 @@ class UserPasswordResetForm(PasswordResetForm):
 
 
 """Форма по смене пароля пользователя после сброса"""
+
+
 class UserSetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label='Новый пароль',
                                     widget=forms.PasswordInput(attrs={
@@ -47,8 +56,10 @@ class UserSetPasswordForm(SetPasswordForm):
                                         'placeholder': 'Новый пароль подтверждение',
                                         'class': 'form-control'}))
 
+
 """Форма по созданию нового пользователя с переопределением полей
    потому что отдельно widgest не работает в этом случае(баг в django)"""
+
 
 class UserRegistrationForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={
